@@ -1,0 +1,14 @@
+{
+  "name": "confetti_cousini",
+  "version": "1.0.0",
+  "description": "A static site for courses of confetti cousini",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "James Garcia",
+  "license": "ISC",
+  "dependencies": {
+    "http-status-codes": "^1.4.0"
+  }
+}
