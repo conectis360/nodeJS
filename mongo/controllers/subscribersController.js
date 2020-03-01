@@ -1,10 +1,19 @@
 const Subscriber = require("../models/subscriber");
 
 exports.getAllSubscribers = (req, res, next) => {
-  Subscriber.find({}, (error, subscribers) => {
-    if (error) next(error);
-    req.data = subscribers;
-    next();
+  Subscriber.find({})
+  .exec()
+  .then((Subscribers) => {
+    res.render("subscribers", {
+      subscribers: subscribers
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
+    return [];
+  })
+  .then(() => {
+    console.log("Promessa comprida");
   });
 };
 
@@ -18,8 +27,7 @@ exports.saveSubscriber = (req, res) => {
       email: req.body.email,
       zipCode: req.body.zipCode
     });
-    newSubscriber
-      .save()
+    newSubscriber.save()
       .then(result => {
         res.render("thanks");
       })
