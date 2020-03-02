@@ -5,7 +5,7 @@ exports.getAllSubscribers = (req, res) => {
     Subscriber.find({})
     .exec()
     .then((subscribers) => {
-        res.render("subscriber", {
+        res.render("subscribers", {
             subscribers: subscribers
         });
     })
