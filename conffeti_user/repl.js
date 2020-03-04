@@ -1,8 +1,9 @@
 const mongoose = require("mongoose"),
   Subscriber = require("./models/subscribers"),
   Course = require("./models/course");
+  User = require("./models/user");
 
-var testCourse, testSubscriber;
+var testCourse, testSubscriber, testUser;
 
 mongoose.connect(
   "mongodb://localhost:27017/recipe_db",
@@ -61,3 +62,15 @@ Subscriber.remove({})
     });
   })
   .then(subscriber => console.log(subscriber));
+
+
+User.create({
+  name: {
+    first: "Jon",
+    last: "Wexler"
+  },
+  email: "jon@jonwexler.com",
+  password: "pass123"
+})
+  .then(user => testUser = user)
+  .catch(error => console.log(error.message));
