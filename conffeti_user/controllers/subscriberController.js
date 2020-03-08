@@ -1,4 +1,3 @@
-const httpStatus = require("http-status-codes");
 const Subscriber = require("../models/subscribers");
 
 exports.getAllSubscribers = (req, res) => {
