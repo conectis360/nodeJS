@@ -24,6 +24,7 @@ app.get("/users", usersController.index, usersController.indexView);
 router.get("/users/new", usersController.new);
 router.post("/users/create", usersController.create,
   usersController.redirectView);
+router.get("/users/:id", usersController.show, usersController.showView);
 
 
 app.listen(3000, () => {
