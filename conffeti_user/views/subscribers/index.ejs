@@ -17,6 +17,11 @@
       <td>
         <%= subscriber.email %>
       </td>
+      <td>
+        <a href="<%= `/subscriber/${subscriber._id}/edit` %>">
+          Edit
+        </a>
+      </td>
     </tr>
     <% }); %>
   </tbody>

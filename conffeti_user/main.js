@@ -61,6 +61,8 @@ router.post(
   subscribersController.create,
   subscribersController.redirectView
 );
+router.put("/subscribers/edit", subscribersController.edit);
+
 router.get("/subscribers/:id", subscribersController.show, subscribersController.showView);
 
 router.get("/courses", coursesController.index, coursesController.indexView);
@@ -72,10 +74,12 @@ router.post("/subscribe", subscribersController.saveSubscriber);
 
 router.get("/users/:id/edit", usersController.edit);
 router.put("/users/:id/update", usersController.update, usersController.redirectView);
+router.delete("/users/:id/delete", usersController.delete, usersController.redirectView);
 
 router.use(errorController.logErrors);
 router.use(errorController.respondNoResourceFound);
 router.use(errorController.respondInternalError);
+
 
 app.use("/", router);
 

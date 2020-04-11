@@ -33,5 +33,19 @@ module.exports = {
       .catch(error => {
         if (error) res.send(error);
       });
+  },
+
+  edit: (req, res, next) => {
+    let subscriberId = req.params.id;
+    Subscriber.findById(subscriberId)
+      .then(subscriber => {
+        res.render("subscribers/edit", {
+          subscriber: subscriber
+        });
+      })
+      .catch(error => {
+        console.log(`Error fetching user by ID: ${error.message}`);
+        next(error);
+      });
   }
 };
