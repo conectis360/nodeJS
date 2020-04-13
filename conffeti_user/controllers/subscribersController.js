@@ -77,5 +77,50 @@ module.exports = {
     let redirectPath = res.locals.redirect;
     if (redirectPath !== undefined) res.redirect(redirectPath);
     else next();
+  },
+  edit: (req, res, next) => {
+    let subscriberId = req.params.id;
+    Subscriber.findById(subscriberId)
+      .then(subscriber => {
+        res.render("subscribers/edit", {
+          subscriber: subscriber
+        });
+      })
+      .catch(error => {
+        console.log(`Error fetching subscriber by ID: ${error.message}`);
+        next(error);
+      });
+  },
+  update: (req, res, next) => {
+    let subscriberId = req.params.id;
+    subscriberParams = {
+      name: req.body.name,
+      email: req.body.email,
+      zipCode: req.body.zipCode
+    };
+    Subscriber.findOneAndUpdate(subscriberIdm, {
+      $set: subscriberParams
+    })
+      .then(subscriber => {
+        res.locals.redirect = `/subscribers/${subscriberId}`;
+        res.locals.subscriber = subscriber;
+        next();
+      })
+      .catch(error => {
+        console.log(`Error updating subscriber by ID: ${error.message}`);
+      })
+  },
+  delete: (req, res, next) => {
+    let userId = req.params.id;
+    Subscriber.findByIdAndRemove(subscriberId)
+    .then(() => {
+      res.locals.redirect = "/users";
+      next();
+    })
+    .catch(error => {
+      console.log(`Error deleting user by ID: ${error.message}`);
+      next();
+    })
   }
+
 };

@@ -61,9 +61,9 @@ router.post(
   subscribersController.create,
   subscribersController.redirectView
 );
-router.put("/subscribers/edit", subscribersController.edit);
 
 router.get("/subscribers/:id", subscribersController.show, subscribersController.showView);
+router.get("/subscribers/edit", subscribersController.edit);
 
 router.get("/courses", coursesController.index, coursesController.indexView);
 router.get("/courses/new", coursesController.new);

@@ -61,5 +61,52 @@ module.exports = {
     let redirectPath = res.locals.redirect;
     if (redirectPath !== undefined) res.redirect(redirectPath);
     else next();
+  },
+  edit: (req, res, next) => {
+    let courseId = req.params.id;
+    Course.findById(courseId)
+      .then(course => {
+        res.render("courses/edit", {
+          course: course
+        });
+      })
+      .catch(error => {
+        console.log(`Error fetching user by ID: ${error.message}`);
+        next(error);
+      });
+  },
+  update: (req, res, next) => {
+    let courseId = req.params.id,
+      courseParams = {
+        title: req.body.title,
+        description: req.body.description,
+        items: [req.body.items.split(",")],
+        zipCode: req.body.zipCode
+      };
+    Course.findByIdAndUpdate(courseId, {
+      $set: courseParams
+    })
+      .then(course => {
+        res.locals.redirect = `/courses/${courseId}`;
+        res.locals.user = user;
+        next();
+      })
+      .catch(error => {
+        console.log(`Erro ao dar update no curso pelo id: ${error.message}`);
+        next(error);
+      });
+  },
+  delete: (req, res, next) => {
+    let courseId = req.params.id;
+    Course.findByIdAndRemove(courseId)
+      .then(() => {
+        res.locals.redirect = '/courses';
+        next()
+      })
+      .catch(error => {
+        console.log(`Erro ao deletar curso pelo id ${error.message}`);
+        next();
+      });
   }
 };
+
